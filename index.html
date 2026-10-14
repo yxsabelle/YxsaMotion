@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>YxsaMotion — A little gesture, a little magic.</title>
+<meta name="description" content="Show a hand gesture to your camera and watch YxsaMotion bring it to life.">
+<meta name="theme-color" content="#fdeef2">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Jost:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="bow" viewBox="0 0 48 28">
+    <path d="M24 14C16 3 4 2 3 9c-1 8 11 9 21 5zM24 14c8-11 20-12 21-5 1 8-11 9-21 5z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
+    <circle cx="24" cy="14" r="3" fill="currentColor"/>
+    <path d="M22 17l-5 9M26 17l5 9" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+  </symbol>
+</svg>
+
+<div class="bg" aria-hidden="true"><span>♡</span><span>✦</span><span>♡</span><span>✦</span><span>♡</span></div>
+
+<!-- WELCOME -->
+<main id="welcome" class="view welcome">
+  <div class="welcome-inner">
+    <svg class="bow-mark" aria-hidden="true"><use href="#bow"/></svg>
+    <h1 class="wordmark">YxsaMotion</h1>
+    <p class="tagline">A little gesture, a little magic.</p>
+    <p class="intro">Make a little sign and watch the magic unfold. Show a gesture to your camera and let YxsaMotion bring it to life.</p>
+    <button id="btn-get-started" class="btn btn-primary btn-lg" type="button">Get Started</button>
+    <p class="fine">Your camera is only used on this page to recognize gestures. It asks for permission first, and nothing is recorded or uploaded.</p>
+  </div>
+</main>
+
+<!-- GESTURE EXPERIENCE -->
+<main id="app" class="view app" hidden>
+  <header class="app-head">
+    <span class="brand"><svg aria-hidden="true"><use href="#bow"/></svg>YxsaMotion</span>
+    <button id="btn-home" class="btn btn-ghost" type="button" aria-label="Return to the welcome screen">Home</button>
+  </header>
+
+  <div class="layout">
+    <section class="stage-col" aria-label="Camera">
+      <div class="stage" id="stage">
+        <video id="video" playsinline muted autoplay></video>
+        <canvas id="fx" aria-hidden="true"></canvas>
+        <div id="placeholder" class="placeholder">
+          <svg aria-hidden="true"><use href="#bow"/></svg>
+          <p class="ph-title">Ready to make a little magic?</p>
+          <p class="ph-sub">YxsaMotion needs your camera to see your hands. Your browser will ask for permission when you press Start Camera.</p>
+        </div>
+        <div id="loader" class="loader" role="status" hidden><span class="spinner" aria-hidden="true"></span><span id="loader-text">Loading model…</span></div>
+      </div>
+      <div class="controls">
+        <button id="btn-start" class="btn btn-primary" type="button">Start Camera</button>
+        <button id="btn-stop" class="btn" type="button" hidden>Stop Camera</button>
+        <button id="btn-switch" class="btn" type="button" hidden aria-label="Switch between front and rear camera">Switch Camera</button>
+        <button id="btn-replay" class="btn" type="button" aria-label="Replay the current animation">Replay Animation</button>
+      </div>
+    </section>
+
+    <section class="panel" aria-label="Gesture recognition">
+      <p id="status" class="status" role="status" aria-live="polite"><span id="status-icon" aria-hidden="true">○</span><span id="status-text">Camera inactive</span></p>
+
+      <div class="reading">
+        <p class="reading-label">Detected gesture</p>
+        <p id="gesture-name" class="gesture-name">—</p>
+        <div class="conf"><div class="meter" aria-hidden="true"><i id="meter"></i></div><span id="conf-text">Confidence 0%</span></div>
+      </div>
+
+      <p id="message" class="message" aria-live="polite">Show me a sign ♡</p>
+
+      <div id="notice" class="notice" role="alert" hidden>
+        <p id="notice-text"></p>
+        <button id="btn-retry" class="btn btn-small" type="button" hidden>Retry loading model</button>
+      </div>
+
+      <div class="guide">
+        <h2>Gesture guide</h2>
+        <ul>
+          <li style="--accent:#f4a0b9"><span class="g-ico" aria-hidden="true">🫶</span><div><strong>Heart Sign</strong><span>Make a heart with both hands. Floating hearts.</span></div></li>
+          <li style="--accent:#e8829f"><span class="g-ico" aria-hidden="true">🫰</span><div><strong>Finger Heart Sign</strong><span>Cross your thumb and index finger. Flowing ribbons.</span></div></li>
+          <li style="--accent:#d9718f"><span class="g-ico" aria-hidden="true">✌🏻</span><div><strong>Peace Sign</strong><span>Raise two fingers in a V. Peace symbols.</span></div></li>
+        </ul>
+        <p class="fine">Tip: good light and a plain background help. Hold each sign steady for a moment.</p>
+      </div>
+    </section>
+  </div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8/dist/teachablemachine-image.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
